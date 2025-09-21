@@ -1,0 +1,48 @@
+version: "3.8"
+
+services:
+  campusmgmt:
+    image: USERNAME/hms
+    container_name: campusmgmt_app
+    ports:
+      - "7079:7079"
+    depends_on:
+      - mysql             # 👈 change dependency name
+
+  mysql:                  # 👈 service name changed
+    image: mysql:8        # 👈 SQL database image
+    container_name: campusmgmt_mysql
+    environment:         # 👈 credentials
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: campusdb
+      MYSQL_USER: campususer
+      MYSQL_PASSWORD: campuspass
+    ports:
+      - "3306:3306"       # 👈 default MySQL port
+    volumes:
+      - mysql_data:/var/lib/mysql  # 👈 MySQL data dir
+
+volumes:
+  mysql_data:
+---------------------------------------------------------------------
+version: "3.8"
+
+services:
+  campusmgmt:
+    image: USERNAME(OF DOCKERHUB)/hms   # <-- your DockerHub image
+    container_name: campusmgmt_app
+    ports:
+      - "7079:7079"         # host:container port mapping
+    depends_on:
+      - mongodb
+
+  mongodb:
+    image: mongo:latest
+    container_name: campusmgmt_mongo
+    ports:
+      - "27017:27017"       # default MongoDB port
+    volumes:
+      - mongo_data:/data/db
+
+volumes:
+  mongo_data:
