@@ -29,10 +29,10 @@ version: "3.8"
 
 services:
   campusmgmt:
-    image: USERNAME(OF DOCKERHUB)/hms   # <-- your DockerHub image
+    image: rayyan829/hms       # <-- replace USERNAME with your actual DockerHub username
     container_name: campusmgmt_app
     ports:
-      - "7079:7079"         # host:container port mapping
+      - "7079:7079"            # host:container port mapping
     depends_on:
       - mongodb
 
@@ -40,9 +40,10 @@ services:
     image: mongo:latest
     container_name: campusmgmt_mongo
     ports:
-      - "27017:27017"       # default MongoDB port
+      - "27017:27017"          # default MongoDB port
     volumes:
       - mongo_data:/data/db
 
 volumes:
   mongo_data:
+
