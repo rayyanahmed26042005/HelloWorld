@@ -46,4 +46,24 @@ services:
 
 volumes:
   mongo_data:
+-------------------------------
+services:
+  campusmgmt:
+    build: .                 # build locally instead of pulling
+    container_name: campusmgmt_app
+    ports:
+      - "7079:8080"
+    depends_on:
+      - mongodb
+
+  mongodb:
+    image: mongo:latest
+    container_name: campusmgmt_mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+volumes:
+  mongo_data:
 
