@@ -1,0 +1,46 @@
+#include <Wire.h>
+#include <Adafruit_GFX.h>
+#include <Adafruit_SSD1306.h>
+
+#define OLED_RESET -1
+Adafruit_SSD1306 display(128, 64, &Wire, OLED_RESET);
+
+const int greenLed = 2;
+const int yellowLed = 3;
+const int redLed = 4;
+
+void setup() {
+  display.begin(SSD1306_SWITCHCAPVCC, 0x3C);
+  display.clearDisplay();
+  
+  pinMode(greenLed, OUTPUT);
+  pinMode(yellowLed, OUTPUT);
+  pinMode(redLed, OUTPUT);
+}
+
+void loop() {
+
+  float voltage = analogRead(A0) * 5.0 / 1023.0;
+
+  display.clearDisplay();
+  display.setTextSize(1);
+  display.setCursor(0,0);
+  display.println("Battery Voltage");
+  display.setTextSize(2);
+  display.println(voltage);
+  display.display();
+
+  // Turn OFF all LEDs first
+  digitalWrite(greenLed, LOW);
+  digitalWrite(yellowLed, LOW);
+  digitalWrite(redLed, LOW);
+
+  if (voltage >= 1.35)
+    digitalWrite(greenLed, HIGH);
+  else if (voltage > 1.2)
+    digitalWrite(yellowLed, HIGH);
+  else
+    digitalWrite(redLed, HIGH);
+
+  delay(500);
+}
