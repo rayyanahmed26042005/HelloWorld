@@ -1,0 +1,35 @@
+import json
+def lambda_handler(event, context):
+    a = event.get('num1', 0)
+    b = event.get('num2', 0)
+    result = a + b
+    return {
+        'statusCode': 200,
+        'body': json.dumps({
+            'sum': result
+        })
+    }
+-------------------------------------------------------------------------------------
+yum update -y
+yum install httpd -y
+systemctl start httpd
+systemctl enable httpd
+echo  "This is Server 1" > /var/www/html/index.html
+
+1.	Go to EC2 → Load Balancers → Create Load Balancer → Application Load Balancer
+2.	Basic Configuration:
+o	Name: my-alb
+o	Scheme: Internet-facing
+o	IP address type: IPv4
+3.	Listeners:
+o	Default: HTTP (80)
+
+Step 1: Create an AMI from Existing EC2 Instance
+3.	Click Actions → Image and Templates → Create Image
+
+1.	Go to EC2 → instances->Launch Templates → Create Launch Template
+2.	Launch Template Name: my-launch-template
+
+1.	Go to EC2 → Auto Scaling Groups → Create Auto Scaling Group
+2.	Name: webserver-asg
+
