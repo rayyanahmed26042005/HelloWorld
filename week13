@@ -1,0 +1,45 @@
+Procedure: Attach an IAM Role to an EC2 Instance (S3 access without keys)
+Step 1 — Create Role in Amazon Web Services IAM
+1.	Open IAM Console → Roles → Create role 
+2.	Trusted entity: Select AWS Service 
+3.	Use case: Choose EC2 
+4.	Click Next 
+Step 2 — Add Permissions
+1.	Search policy: AmazonS3FullAccess 
+2.	Select it → Next 
+Step 3 — Name the Role
+•	Name: EC2-S3-Role 
+•	Click Create role 
+Step 4 — Attach Role to EC2 Instance
+1.	Go to EC2 Dashboard 
+2.	Select running instance 
+3.	Actions → Security → Modify IAM role 
+4.	Select EC2-S3-Role → Update 
+Step 5 — Verify from Instance (No Access Keys!)
+SSH into instance and run:
+aws s3 ls
+aws ec2 describe-instances
+•	aws s3 ls  Works 
+•	aws ec2 describe-instances Unauthorized (no EC2 permission) 
+ Reason: Instance receives temporary credentials from IAM Role automatically.
+
+scenario-based questions on IAM Roles, Users, Groups, and Policies in Amazon Web Services.
+1.	A new developer joins your team and needs access to EC2 and S3. How will you grant permissions securely? 
+2.	A user requires access to AWS resources for only two days. How can you provide temporary access? 
+3.	A developer accidentally exposed AWS access keys on GitHub. What immediate steps will you take? 
+4.	A user wants to access AWS services using the AWS CLI. How will you enable programmatic access? 
+5.	Fifty employees require the same S3 permissions. How will you manage this efficiently? 
+6.	You must remove access permissions for 20 users at once. What is the easiest method? 
+7.	HR, Developers, and Admin teams need different levels of access. How will you organize permissions? 
+8.	An EC2 instance must access S3 without storing access keys. What is the correct approach? 
+9.	Account A needs to access resources in Account B. How can cross-account access be configured? 
+10.	A Lambda function must read and write data to DynamoDB. How will you assign permissions? 
+11.	A user needs administrator privileges for a short time. How can you grant this safely? 
+12.	A user should access only one specific S3 bucket. How do you restrict access? 
+13.	Users should be prevented from deleting any AWS resources. How can you enforce this? 
+14.	A user should be allowed to log in only during office hours. How can this be implemented? 
+15.	Access must be allowed only from the office network IP address. How can this be controlled? 
+16.	What are the best practices to manage IAM permissions securely?
+
+
+
