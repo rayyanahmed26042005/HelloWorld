@@ -1,0 +1,58 @@
+# Step 1: Create Partition
+fdisk /dev/nvme1n1
+
+# Inside fdisk
+m
+n
+p
+Enter
+Enter
+Enter
+w
+
+# Step 2: Notify Kernel
+partprobe
+
+# Step 3: Verify Partition
+lsblk -fs
+
+# Step 4: Format Partition
+mkfs.xfs /dev/nvme1n1p1
+
+# Step 5: Verify Filesystem
+lsblk -fs
+
+# Step 6: Create Mount Directory
+mkdir /mnt/archana
+
+# Step 7: Mount Volume
+mount /dev/nvme1n1p1 /mnt/archana
+
+# Step 8: Verify Mount
+df -h
+
+# Step 9: Get UUID
+blkid /dev/nvme1n1p1
+
+# Step 10: Edit fstab
+nano /etc/fstab
+
+# Add this line
+UUID=f1e294e6-7657-4761-bba5-bb2d0eab3936   /mnt/archana   xfs   defaults,nofail   0   0
+
+# Step 11: Test fstab
+mount -a
+
+# Step 12: Navigate and Create File
+cd /mnt/archana
+touch f1
+
+# Step 13: Reboot
+reboot
+
+# Step 14: Verify After Reboot
+df -h
+
+# Step 15: Mount on Another EC2 Instance
+mkdir /mnt/archana
+mount /dev/nvme1n1p1 /mnt/archana
