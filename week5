@@ -1,0 +1,55 @@
+Step 1: Create the VPC 
+1. Go to AWS Management Console → VPC 
+2. Click Create VPC 
+3. Choose VPC only 
+4. Enter: 
+o Name: Custom-VPC 
+o IPv4 CIDR block: e.g. 10.0.0.0/16 
+5. Click Create VPC 
+Step 2: Create Subnets (Public & Private) 
+Create subnets in same Availability Zones for high availability. 
+Example: 
+∙ Public Subnet: 10.0.1.0/24 (AZ-A) 
+∙ Private Subnet: 10.0.2.0/24 (AZ-A) 
+Steps: 
+1. Go to Subnets → Create subnet 
+2. Select your VPC 
+3. Choose AZ 
+4. Enter CIDR 
+5. Create subnet 
+Public Subnet 
+Private Subnet 
+Step 3: Create an Internet Gateway (IGW) 
+1. Go to Internet Gateways 
+2. Click Create internet gateway 
+3. Name it Custom-IGW 
+4. Attach it to your VPC 
+5. 
+Step 4: Create Route Tables 
+You need separate route tables for public and private subnets. 
+Public Route Table 
+1. Go to Route Tables → Create route table 
+2. Select VPC 
+3. Add route: 
+o Destination: 0.0.0.0/0 
+o Target: Internet Gateway 
+4. Associate with public subnet 
+Private Route Table 
+∙ Keep default local route only (no IGW) 
+∙ Associate with private subnet 
+Step 5: Enable Auto-Assign Public IP (Public Subnet) 
+1. Select Public Subnet 
+2. Go to Edit subnet settings 
+3. Enable Auto-assign public IPv4 address 
+Step 6: Configure Security Groups 
+1. Create a Security Group 
+2. Add inbound rules: 
+o HTTP (80) / HTTPS (443) 
+o SSH (22) from trusted IP 
+3. Attach to EC2 instances 
+Step 7: Launch EC2 Instances 
+∙ Public EC2 → Public subnet 
+∙ Private EC2 → Private subnet 
+Attach correct security groups. 
+Step 8: Test the Setup 
+∙ Public EC2 → Internet access ✔
